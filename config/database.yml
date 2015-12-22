@@ -1,0 +1,9 @@
+development:
+  adapter: sqlite3
+  encoding: utf8
+  reconnect: false
+  database: velo_graph
+  pool: 5
+  username: 
+  password:
+  socket: /tmp/mysql.sock

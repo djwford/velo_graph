@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  record_time: 2015-11-18 20:39:54
+  speed: 1.5
+
+two:
+  record_time: 2015-11-18 20:39:54
+  speed: 1.5
