@@ -4,6 +4,7 @@ class WorkoutSessionsController < ApplicationController
     @workoutSession = WorkoutSession.new
     # Resque.enqueue(SpeedListener)
     puts 'new action triggered'
+    Speedo.new
   end
 
   def create
