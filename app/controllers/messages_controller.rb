@@ -8,7 +8,6 @@ class MessagesController < ApplicationController
 
   def serve
     # listen
-
     x = Thread.new do 
       x["speed"] = 0
       puts "SpeedListener is running!"
@@ -33,7 +32,7 @@ class MessagesController < ApplicationController
           # sse.write("data: #{@speed}") 
           puts x[:speed]
           sse.write("data: #{x[:speed]}") 
-          sleep 1           
+          sleep 3           
         end 
       rescue IOError
         # Client Disconnected
@@ -43,20 +42,6 @@ class MessagesController < ApplicationController
     render nothing: true       
   end
 
-  def listen
-    Thread.new do 
-      puts "SpeedListener is running!"
-      $redis.subscribe("speed") do |event|
-        puts 'block running'
-        event.message do |channel, body|
-          puts "#{body}"
-          @speed = body        
-        end
-      end
-      ActiveRecord::Base.connection.close
-      puts 'closed'
-    end
-  end
 end
 
 
