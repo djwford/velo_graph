@@ -6,7 +6,7 @@ gem 'rails', '4.1.4'
 gem 'sqlite3'
 gem 'puma'
 gem 'redis', '~>3.2'
-gem 'pi_piper'
+# gem 'pi_piper'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
