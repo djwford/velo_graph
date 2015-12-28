@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
       $redis.subscribe("speed") do |event|
         puts 'block running'
         event.message do |channel, body|
-          puts "#{body}"
+          puts "messages_controller picked up: #{body}"
           x["speed"] = body   
         end
       end
@@ -30,7 +30,7 @@ class MessagesController < ApplicationController
           # when the user stops pedaling, the speed will cease
           # to be updated. Compare the previously posted speed
           # to the current redis speed. Set to 0 if they're the same
-          
+            puts "SSE writing #{x[:speed]}"
             sse.write(x[:speed]) 
             
             @posted_speed = x[:speed]

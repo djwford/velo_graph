@@ -27,8 +27,9 @@ class Speedo
     puts 'listening'
     PiPiper.watch :pin => 18, :pull => :up, :direction => :in do |pin|
       if(pin.value == 0) 
-          speed = calculate_speed(Time.now)
-          @archive = Time.now
+          currentTime = Time.now
+          speed = calculate_speed(currentTime)
+          @archive = currentTime
           @redis.publish("speed", speed)
       end
     end
