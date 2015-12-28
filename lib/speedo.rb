@@ -22,21 +22,18 @@ class Speedo
     puts speed
     return speed
   end
-end
 
-def listen
-  # Thread.new do
+  def listen
     puts 'listening'
     PiPiper.watch :pin => 18, :pull => :up, :direction => :in do |pin|
       if(pin.value == 0) 
-          puts 'pin 0'
           speed = calculate_speed(Time.now)
           @archive = Time.now
           @redis.publish("speed", speed)
       end
     end
     PiPiper.wait
-  # end
+  end
 end
 
 Speedo.new
