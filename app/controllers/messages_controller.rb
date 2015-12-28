@@ -9,6 +9,7 @@ class MessagesController < ApplicationController
   def serve
     # listen
     x = Thread.new do 
+      x["speed"] = 0
       puts "SpeedListener is running!"
       $redis.subscribe("speed") do |event|
         puts 'block running'
@@ -30,11 +31,15 @@ class MessagesController < ApplicationController
           # when the user stops pedaling, the speed will cease
           # to be updated. Compare the previously posted speed
           # to the current redis speed. Set to 0 if they're the same
-            puts "SSE writing #{x[:speed]}"
-            sse.write(x[:speed]) 
-            
+            current_speed = x[:speed]
+            if @posted_speed != current_speed
+              puts "SSE writing #{x[:speed]}"
+              sse.write(x[:speed]) 
+            else
+              sse.write(0)
+            end
             @posted_speed = x[:speed]
-            sleep 3 
+            sleep 2 
         end 
       rescue IOError
         # Client Disconnected
