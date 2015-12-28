@@ -37,6 +37,7 @@ class MessagesController < ApplicationController
               sse.write(x[:speed]) 
               @posted_speed = x[:speed]
             else
+              puts "current: #{current_speed}, posted: #{@posted_speed}"
               sse.write(0)
             end
             sleep 2 
