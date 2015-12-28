@@ -41,6 +41,9 @@ $(document).ready(function(){
     $("#start_button").data("active", "true");
   });
 
+  $("#pause_button").on("click", function(){
+    $("#start_button").data("active", "false");
+  });
 
   function logData(data)
   {
@@ -49,7 +52,6 @@ $(document).ready(function(){
     // graph it
     var chart = $("#speed_graph").highcharts();
     chart.series[0].addPoint(parseInt(data, 10), true, false);
-
   }
 
   function startHighCharts()
@@ -71,7 +73,7 @@ $(document).ready(function(){
       },
       plotOptions: {
         series: {
-          pointInterval: 3000
+          pointInterval: 2000
         }
       },
 
