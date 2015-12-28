@@ -15,7 +15,8 @@ class MessagesController < ApplicationController
         puts 'block running'
         event.message do |channel, body|
           puts "messages_controller picked up: #{body}"
-          x["speed"] = body   
+          x["speed"] = body 
+          puts "speed in thread: #{x[:speed]}"  
         end
       end
       ActiveRecord::Base.connection.close
@@ -33,9 +34,9 @@ class MessagesController < ApplicationController
           # to the current redis speed. Set to 0 if they're the same
             current_speed = x[:speed]
             if @posted_speed != current_speed
-              puts "SSE writing #{x[:speed]}"
-              sse.write(x[:speed]) 
-              @posted_speed = x[:speed]
+              puts "SSE writing #{current_speed}"
+              sse.write(current_speed) 
+              @posted_speed = current_speed
             else
               puts "current: #{current_speed}, posted: #{@posted_speed}"
               sse.write(0)
