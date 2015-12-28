@@ -34,6 +34,9 @@ $(document).ready(function(){
     alert("Failed to connect to /messages");
   }
 
+  //initialize the graph
+  startHighCharts();
+
   $("#start_button").on("click", function(){
     $("#start_button").data("active", "true");
   });
@@ -41,7 +44,41 @@ $(document).ready(function(){
 
   function logData(data)
   {
+    // add to localstorage
     localStorage["speeds"] = localStorage["speeds"] + "," + data;
+    // graph it
+    var chart = $("#speed_graph").highcharts();
+    chart.series[0].addPoint(parseInt(data, 10), true, false);
+
+  }
+
+  function startHighCharts()
+  {
+    $('#speed_graph').highcharts({
+      chart: {
+          type: 'line'
+      },
+      title: {
+          text: 'Speed'
+      },
+      xAxis: {
+          type: 'datetime'
+      },
+      yAxis: {
+          title: {
+              text: 'Fruit eaten'
+          }
+      },
+      plotOptions: {
+        series: {
+          pointInterval: 3000
+        }
+      },
+
+      series: [{
+        data: [0]
+      }]
+    });
   }
 
 
