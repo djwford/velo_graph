@@ -1,3 +1,5 @@
+
+
 $(document).ready(function(){
   // Pusher.log = function(message) {
     // if (window.console && window.console.log) {
@@ -14,14 +16,33 @@ $(document).ready(function(){
   // });
 
   if (!!window.EventSource) {
+    //empty the local storage
+    localStorage.clear();
     var source = new EventSource('/messages');
     console.log("subscribed to event source");
+    source.addEventListener('message', function(e) {
+      if($("#start_button").data("active") == "true")
+      {
+        logData(e.data);
+      }
+      else
+      {
+        console.log("Received but not logged: " + e.data);
+      }
+    }, false);
   } else {
-    // Result to xhr polling :(
+    alert("Failed to connect to /messages");
   }
 
-  source.addEventListener('message', function(e) {
-    console.log(e.data);
-  }, false);
+  $("#start_button").on("click", function(){
+    $("#start_button").data("active", "true");
+  });
+
+
+  function logData(data)
+  {
+    localStorage["speeds"] = localStorage["speeds"] + "," + data;
+  }
+
 
 });

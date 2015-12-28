@@ -1,1 +1,9 @@
-hi
+<%= simple_form_for @workoutSession do |f|%>
+  <%= f.input :workout_date %>
+  <%= f.input :name %>
+  <%= f.input :workout %>
+  <%= f.input :notes, as: :text %>
+  <%= f.button :submit, :label => "Finish Workout" %>
+<% end %>
+
+<div id="start_button" data-active="false"><p>Start</p></div>

@@ -1,0 +1,15 @@
+basic architecture:
+  1. Redis server is started via initializers/redis-server.rb
+  2. Speed listener is turned on in its own tab: lib/speedo.rb
+  3. When user navigates to workout_sessions/new, an EventSource
+     is initialized and pointed to /messages
+  4. messages_controller routes get requests to the #serve which,
+     in its own thread, listens to the speed redis channel.
+  Begin a workout:
+
+  5. User clicks "Begin"
+    5a. Timer initialized and Highcharts begins with 0 set to current time
+    5b. Log is now active and will receive the SSEs
+  6. As user spins, new data is fed to highcharts and saved in the DB.
+    6a. Data is plotted in highcharts every 3 seconds, which corresponds 
+        to the 3 second interval for messages_controller#serve  
