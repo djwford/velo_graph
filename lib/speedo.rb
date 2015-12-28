@@ -7,7 +7,8 @@ class Speedo
   attr_accessor :archive
 
   def initialize()
-    @redis = Redis.new(:host => 'localhost', :port => 6379)
+    @redis = Redis.new(:host => 'localhost', 
+                       :port => 6379)
     @archive = Time.now
     listen
   end
@@ -19,6 +20,7 @@ class Speedo
     circumference = 2 * (Math::PI) * 350
     speed = 0.001367017 / (elapsed / 3600 )
     puts speed
+    return speed
   end
 end
 

@@ -16,7 +16,6 @@ class MessagesController < ApplicationController
         event.message do |channel, body|
           puts "#{body}"
           x["speed"] = body   
-
         end
       end
       ActiveRecord::Base.connection.close
@@ -30,7 +29,7 @@ class MessagesController < ApplicationController
         loop do 
           # puts "#{listener.speed}"
           # sse.write("data: #{@speed}") 
-          puts x[:speed]
+          puts "speed in listener: #{x[:speed]}"
           sse.write("data: #{x[:speed]}") 
           sleep 3           
         end 
